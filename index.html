@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Queen Anu</title>
+    
+    <!-- 1. Load Tailwind CSS -->
+    <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <!-- 2. Load Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <!-- 3. Custom Styles -->
+    <style>
+        /* Typography */
+        body { font-family: 'Lato', sans-serif; cursor: default; }
+        h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; }
+        .font-handwriting { font-family: 'Dancing Script', cursive; }
+        .font-fancy { font-family: 'Great Vibes', cursive; }
+        
+        /* THEME: Princess Dream Gradient (Enhanced) */
+        .bg-princess-dream {
+            /* Warmer, pinker, and more magical gradient */
+            background: linear-gradient(-45deg, #ffcce6, #ffeaf4, #e6e6fa, #fff0f5, #ffd1dc);
+            background-size: 400% 400%;
+            animation: gradientBG 18s ease infinite;
+            min-height: 100vh;
+        }
+        @keyframes gradientBG { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+        
+        /* Soft Glowing Background Orbs (Refined) */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.5;
+            z-index: -1;
+            animation: floatOrb 25s infinite ease-in-out;
+        }
+        /* Orb 1: Warm Pink/Peach - Top Left */
+        .orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, #ffb7b2 0%, rgba(255,183,178,0) 70%); top: -150px; left: -150px; }
+        /* Orb 2: Soft Lavender - Bottom Right */
+        .orb-2 { width: 600px; height: 600px; background: radial-gradient(circle, #e0c3fc 0%, rgba(224,195,252,0) 70%); bottom: -100px; right: -200px; animation-delay: -5s; }
+        /* Orb 3: Golden Glow - Center Floating */
+        .orb-3 { width: 400px; height: 400px; background: radial-gradient(circle, #fffacd 0%, rgba(255,250,205,0) 70%); top: 30%; left: 40%; animation-delay: -10s; opacity: 0.3; }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, 50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* Global Texture (Noise - Subtle) */
+        .bg-texture {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 0;
+        }
+
+        /* Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65); /* Slightly more opaque for better contrast */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 20px 40px -10px rgba(255, 182, 193, 0.4);
+            border-radius: 2.5rem;
+        }
+
+        /* Music Player Animation */
+        .player-wrapper { overflow: hidden; transition: all 0.5s ease-out; background: white; border-radius: 12px; border: 1px solid #fbcfe8; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        .player-closed { width: 0; height: 0; opacity: 0; margin: 0; }
+        .player-open { width: 300px; height: 352px; opacity: 1; margin-bottom: 1rem; } 
+
+        /* Envelope Styles */
+        .envelope-flap-cut { clip-path: polygon(0 0, 50% 80%, 100% 0); }
+        .pattern-dots { background-image: radial-gradient(rgba(0,0,0,0.05) 2px, transparent 2px); background-size: 24px 24px; }
+        
+        /* Floating Heart Animation (CSS only) */
+        @keyframes float-heart {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-20px) scale(1.2); opacity: 0; }
+        }
+        .animate-float-heart { animation: float-heart 1.5s ease-out infinite; }
+
+        /* General Animations */
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-spin-slow { animation: spin 15s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; opacity: 0; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-bounce-slow { animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(-5%); animation-timing-function: cubic-bezier(0.8, 0, 1, 1); } 50% { transform: translateY(0); animation-timing-function: cubic-bezier(0, 0, 0.2, 1); } }
+
+        /* Utilities */
+        .text-gold-500 { color: #d4af37; }
+        .border-gold-200 { border-color: #e5d398; }
+        .bg-gold-50 { background-color: #fcfbf5; }
+        .img-error { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #fff0f5; color: #f472b6; font-size: 0.75rem; text-align: center; border: 2px dashed #fbcfe8; padding: 1rem; height: 100%; width: 100%; min-height: 200px; }
+    </style>
+    
+    <!-- 4. Load React -->
+    <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-princess-dream text-gray-800 overflow-x-hidden relative">
+    <div class="bg-texture"></div>
+    
+    <!-- Background Floating Orbs -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const MEDIA = {
+            hero: "hero.jpg", class6: "class6.jpg", now: "now.jpg",
+            gallery1: "photo1.jpg", gallery2: "photo2.jpg", gallery3: "photo3.jpg",
+            gallery4: "photo4.jpg", gallery5: "photo5.jpg", gallery6: "photo6.jpg"
+        };
+        
+        const PLAYLIST_LINK = "https://open.spotify.com/playlist/7G1SZWR2JqltkSRVeqqUCz?si=MhCeXF0ATvq6ksL-3rKjbQ";
+        const SONG_EMBED_URL = "https://open.spotify.com/embed/playlist/7G1SZWR2JqltkSRVeqqUCz?utm_source=generator";
+        const GEMINI_API_KEY = "AIzaSyBYpEwGt2vC8rBmWhaUKLURNXn99j2ou0U";
+
+        // --- ICONS ---
+        const Icon = ({ children, className, ...props }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>{children}</svg>);
+        const Heart = (p) => <Icon {...p}><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" /></Icon>;
+        const Crown = (p) => <Icon {...p}><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14" /></Icon>;
+        const Sparkles = (p) => <Icon {...p}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275-1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M9 5H3"/><path d="M19 19v4"/><path d="M22 21h-6"/><path d="M21 5h-4"/><path d="M19 3v4"/><path d="M5 21H3"/><path d="M5 19v4"/></Icon>;
+        const Gift = (p) => <Icon {...p}><rect x="3" y="8" width="18" height="4" rx="1" /><path d="M12 8v13" /><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" /><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5" /></Icon>;
+        const Play = (p) => <Icon {...p}><polygon points="5 3 19 12 5 21 5 3" /></Icon>;
+        const CloseIcon = (p) => <Icon {...p}><path d="M18 6 6 18" /><path d="m6 6 12 12" /></Icon>;
+        const MusicNote = (p) => <Icon {...p}><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></Icon>;
+        const Star = (p) => <Icon {...p}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></Icon>;
+        const Moon = (p) => <Icon {...p}><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></Icon>;
+        const Feather = (p) => <Icon {...p}><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" /><line x1="16" x2="2" y1="8" y2="22" /><line x1="17.5" x2="9" y1="15" y2="15" /></Icon>;
+        const Wand2 = (p) => <Icon {...p}><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z" /><path d="m14 7 3 3" /><path d="M5 6v4" /><path d="M19 14v4" /><path d="M10 2v2" /><path d="M7 8H3" /><path d="M21 16h-4" /><path d="M11 3H9" /></Icon>;
+        const Quote = (p) => <Icon {...p}><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" /><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" /></Icon>;
+        const Shuffle = (p) => <Icon {...p}><path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l14.2-12.6c.8-1 1.9-1.7 3.1-1.7H22" /><path d="m2 5 1.5 1.4c1.3 1.2 3 1.9 4.8 1.9h.8" /><path d="M15.7 15.7c.8 1 1.9 1.7 3.1 1.7H22" /></Icon>;
+        const MessageCircle = (p) => <Icon {...p}><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" /></Icon>;
+        const Headphones = (p) => <Icon {...p}><path d="M3 18v-6a9 9 0 0 1 18 0v6" /><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" /></Icon>;
+        const Calendar = (p) => <Icon {...p}><rect width="18" height="18" x="3" y="4" rx="2" ry="2" /><line x1="16" x2="16" y1="2" y2="6" /><line x1="8" x2="8" y1="2" y2="6" /><line x1="3" x2="21" y1="10" y2="10" /></Icon>;
+        const ImageIcon = (p) => <Icon {...p}><rect width="18" height="18" x="3" y="3" rx="2" ry="2" /><circle cx="9" cy="9" r="2" /><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" /></Icon>;
+        const Mail = (p) => <Icon {...p}><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></Icon>;
+        const MapIcon = (p) => <Icon {...p}><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21" /><line x1="9" x2="9" y1="3" y2="18" /><line x1="15" x2="15" y1="6" y2="21" /></Icon>;
+
+        const callGemini = async (prompt) => {
+            const apiKey = GEMINI_API_KEY;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+            for (let i = 0; i < 3; i++) {
+                try {
+                    const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }) });
+                    if (!response.ok) throw new Error(`API call failed`);
+                    const data = await response.json();
+                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "Magic fading...";
+                } catch (error) { if (i === 2) return "The stars are cloudy right now. ✨"; await delay(Math.pow(2, i) * 1000); }
+            }
+        };
+
+        const SafeImage = ({ src, className }) => {
+            const [error, setError] = useState(false);
+            if (error) return <div className={`${className} img-error`}><span className="font-bold block mb-1">IMAGE</span><span className="break-all">{src}</span></div>;
+            return <img src={src} className={className} onError={() => setError(true)} alt="" />;
+        };
+
+        // --- NEW: Magical Interaction Effects ---
+        const MagicCursor = () => {
+            const [particles, setParticles] = useState([]);
+            useEffect(() => {
+                const handleMouseMove = (e) => {
+                    const id = Date.now();
+                    setParticles(prev => [...prev, { id, x: e.clientX, y: e.clientY }]);
+                    setTimeout(() => setParticles(prev => prev.filter(p => p.id !== id)), 1000);
+                };
+                window.addEventListener('mousemove', handleMouseMove);
+                return () => window.removeEventListener('mousemove', handleMouseMove);
+            }, []);
+            return (
+                <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
+                    {particles.map(p => (
+                        <div key={p.id} className="absolute text-pink-300 text-xs animate-float-heart" style={{ top: p.y, left: p.x, transform: `translate(-50%, -50%)` }}>✨</div>
+                    ))}
+                </div>
+            );
+        };
+
+        const ClickBlooms = () => {
+            const [blooms, setBlooms] = useState([]);
+            useEffect(() => {
+                const handleClick = (e) => {
+                    const id = Date.now();
+                    setBlooms(prev => [...prev, { id, x: e.pageX, y: e.pageY }]);
+                    setTimeout(() => setBlooms(prev => prev.filter(b => b.id !== id)), 1000);
+                };
+                window.addEventListener('click', handleClick);
+                return () => window.removeEventListener('click', handleClick);
+            }, []);
+            return (
+                <div className="pointer-events-none absolute inset-0 z-50 overflow-hidden" style={{height: '300vh'}}>
+                    {blooms.map(b => (
+                        <div key={b.id} className="absolute text-2xl animate-bounce" style={{ top: b.y - 20, left: b.x - 10 }}>💖</div>
+                    ))}
+                </div>
+            );
+        };
+
+        const ConfettiCanvas = ({ isActive }) => {
+            const canvasRef = useRef(null);
+            useEffect(() => {
+                if (isActive) {
+                    const canvas = canvasRef.current;
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                    let particles = Array.from({length: 200}, () => ({ x: canvas.width/2, y: canvas.height/2, size: Math.random()*6+2, speedX: Math.random()*8-4, speedY: Math.random()*-8-4, color: ['#f472b6', '#fbbf24', '#f87171'][Math.floor(Math.random()*3)], life: 100 }));
+                    const animate = () => {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        particles = particles.filter(p => p.life > 0);
+                        particles.forEach((p) => { 
+                            p.x+=p.speedX; p.y+=p.speedY; p.speedY+=0.2; p.life-=1; 
+                            ctx.fillStyle=p.color; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill(); 
+                        });
+                        if(particles.length>0) requestAnimationFrame(animate);
+                    };
+                    animate();
+                }
+            }, [isActive]);
+            return <canvas ref={canvasRef} className={`fixed inset-0 pointer-events-none z-50 ${isActive?'block':'hidden'}`} />;
+        };
+
+        const SectionHeading = ({ title, subtitle, icon: Icon }) => (
+            <div className="text-center mb-20 relative">
+                <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-white to-transparent"></div>
+                <div className="relative inline-block px-8 py-2">
+                    <div className="inline-flex items-center justify-center p-3 bg-white rounded-full ring-4 ring-pink-100 shadow-md mb-4">
+                        {Icon && <Icon className="w-6 h-6 text-pink-400" />}
+                    </div>
+                    <h2 className="text-4xl md:text-5xl font-bold text-gray-800 font-serif tracking-wide">{title}</h2>
+                    <p className="text-lg text-gray-600 font-light font-handwriting mt-2 text-2xl">{subtitle}</p>
+                </div>
+            </div>
+        );
+
+        const MusicPlayer = () => {
+            const [isOpen, setIsOpen] = useState(false);
+            return (
+                <div className="fixed bottom-6 left-6 z-50 flex items-end gap-3">
+                    <button onClick={() => setIsOpen(!isOpen)} className="bg-white/90 backdrop-blur p-4 rounded-full shadow-lg border-2 border-pink-100 text-pink-500 hover:scale-110 transition-all duration-300 relative z-50">
+                        <div className={`transition-transform duration-500 ${isOpen ? 'rotate-180' : ''}`}>{isOpen ? <CloseIcon className="w-6 h-6" /> : <MusicNote className="w-6 h-6 animate-pulse" />}</div>
+                    </button>
+                    <div className={`player-wrapper ${isOpen ? 'player-open' : 'player-closed'}`}><iframe style={{borderRadius: "12px"}} src={SONG_EMBED_URL} width="100%" height="352" frameBorder="0" allowFullScreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+                </div>
+            );
+        };
+
+        const Navbar = () => (
+            <nav className="fixed w-full z-40 top-0 bg-white/40 backdrop-blur-md border-b border-white/30">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div className="flex justify-center h-20 items-center"><div className="flex items-center gap-2"><Crown className="w-5 h-5 text-gold-500" /><span className="font-serif text-2xl font-bold text-gray-800 tracking-wider">Queen <span className="text-pink-500">Anu</span></span><Crown className="w-5 h-5 text-gold-500" /></div></div></div>
+            </nav>
+        );
+
+        const Hero = ({ triggerConfetti }) => {
+            return (
+                <div className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
+                    <div className="absolute top-20 left-10 text-pink-300 animate-float opacity-50"><Sparkles className="w-12 h-12" /></div>
+                    <div className="absolute bottom-20 right-10 text-yellow-300 animate-float opacity-50" style={{animationDelay: '2s'}}><Star className="w-10 h-10" /></div>
+                    <div className="absolute top-40 right-20 text-pink-200 animate-spin-slow opacity-30"><Crown className="w-24 h-24" /></div>
+                    <div className="absolute top-32 left-1/4 text-pink-200 animate-float" style={{animationDelay: '1s'}}><Heart className="w-8 h-8 opacity-60" /></div>
+                    <div className="absolute bottom-32 left-20 text-red-200 animate-float" style={{animationDelay: '3s'}}><Heart className="w-6 h-6 opacity-50" /></div>
+                    <div className="absolute top-1/2 right-10 text-pink-300 animate-float" style={{animationDelay: '1.5s'}}><Heart className="w-4 h-4 opacity-40" /></div>
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
+                            <div className="lg:w-1/2 text-center lg:text-left">
+                                <div className="inline-flex items-center gap-2 mb-8 px-6 py-2 rounded-full bg-white/60 backdrop-blur border border-pink-100 text-pink-500 text-sm font-bold tracking-widest uppercase shadow-sm animate-pulse"><Heart className="w-4 h-4 fill-current text-pink-400" /> <span>My Dearest Anu</span> <Heart className="w-4 h-4 fill-current text-pink-400" /></div>
+                                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-800 font-serif mb-6 leading-tight">To Anu, The Princess of <br/><span className="text-pink-500 font-handwriting text-6xl lg:text-8xl block mt-2 transform -rotate-2">My World</span></h1>
+                                <p className="max-w-xl mx-auto lg:mx-0 text-xl text-gray-600 mb-8 leading-relaxed font-light">Every day with you feels like a page out of a fairy tale. Thank you for filling my life with magic, love, and endless happiness.</p>
+                                <div className="flex flex-wrap gap-4 justify-center lg:justify-start mb-8 lg:mb-0"><button onClick={triggerConfetti} className="bg-gradient-to-r from-pink-400 to-pink-500 text-white px-10 py-4 rounded-full font-bold shadow-lg hover:shadow-pink-300/50 hover:scale-105 transition-all inline-flex items-center gap-3"><Gift className="w-5 h-5 animate-bounce" /> Send Love</button></div>
+                            </div>
+                            <div className="lg:w-1/2 relative group w-full max-w-lg">
+                                <div className="absolute -inset-8 bg-gradient-to-tr from-pink-200 via-white to-yellow-100 rounded-[3rem] blur-2xl opacity-80 animate-pulse"></div>
+                                <div className="relative z-10 rounded-[2.5rem] overflow-hidden bg-white p-3 shadow-[0_20px_50px_rgba(0,0,0,0.15)] ring-4 ring-white/50 transform rotate-2 hover:rotate-0 transition-all duration-700 scale-105">
+                                    <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 washi-tape bg-pink-100/50"></div>
+                                    <div className="rounded-[2rem] overflow-hidden" style={{aspectRatio: '4/5'}}><SafeImage src={MEDIA.hero} className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000" /></div>
+                                    <div className="text-center py-5"><p className="font-handwriting text-3xl text-gray-400 flex items-center justify-center gap-2">My Forever <Heart className="w-6 h-6 text-red-400 fill-current animate-bounce"/></p></div>
+                                </div>
+                                <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-full shadow-xl transform rotate-12 animate-float border-4 border-pink-50 z-20"><span className="text-4xl">👑</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const OurJourney = () => {
+            const milestones = [
+                { id: 1, year: "2013", title: "Class 6", subtitle: "Where It All Began", description: "Two kids in a classroom, not knowing they were about to start the most beautiful story ever told.", icon: Heart, image: MEDIA.class6, color: "bg-pink-100", rotate: "-rotate-1" },
+                { id: 2, year: "Now", title: "Forever", subtitle: "Growing Stronger", description: "Years have passed, we've grown up side by side, and my love for you has only grown stronger.", icon: Crown, image: MEDIA.now, color: "bg-purple-100", rotate: "rotate-1" }
+            ];
+            return (
+                <div className="py-32 relative overflow-hidden">
+                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <SectionHeading title="Our Journey" subtitle="From Class 6 to forever." icon={Calendar} />
+                        <div className="relative">
+                            <div className="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 h-full w-1 bg-gradient-to-b from-pink-200 via-purple-200 to-pink-200 rounded-full"></div>
+                            <div className="space-y-20">
+                                {milestones.map((m, index) => {
+                                    const IconComponent = m.icon;
+                                    const isEven = index % 2 === 0;
+                                    return (
+                                        <div key={m.id} className={`relative flex flex-col md:flex-row items-center ${isEven ? '' : 'md:flex-row-reverse'}`}>
+                                            <div className={`w-full md:w-1/2 flex ${isEven ? 'justify-end md:pr-12' : 'justify-start md:pl-12'} mb-4 md:mb-0`}><div className="hidden md:block"><div className={`text-5xl font-fancy text-pink-400 transform ${isEven ? '-rotate-6' : 'rotate-6'} opacity-80 text-shadow-sm`}>{m.year}</div></div></div>
+                                            <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center"><div className={`w-12 h-12 ${m.color} rounded-full border-4 border-white shadow-lg flex items-center justify-center z-20`}><IconComponent className="w-5 h-5 text-gray-700" /></div></div>
+                                            <div className="w-full md:w-1/2 pl-12 md:pl-0 md:px-12"><div className={`relative glass-card p-6 shadow-lg border border-white ${m.rotate}`}><div className="flex flex-col gap-6"><div className="relative aspect-[3/4] rounded-t-full rounded-b-[2rem] overflow-hidden shadow-md bg-gray-50 group mx-auto w-full max-w-[200px] border-4 border-white"><SafeImage src={m.image} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" /><div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div></div><div className="text-center"><div className="md:hidden text-3xl font-fancy text-pink-300 mb-2">{m.year}</div><h3 className="text-2xl font-serif font-bold text-gray-800">{m.title}</h3><p className="text-xs font-bold tracking-widest text-pink-400 uppercase mb-3">{m.subtitle}</p><p className="text-gray-600 font-light leading-relaxed text-sm">{m.description}</p></div></div></div></div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const Gallery = () => {
+            const photos = [
+                { id: 1, src: MEDIA.gallery1, caption: "My Sunshine ☀️" }, { id: 2, src: MEDIA.gallery2, caption: "Partner in Crime 🕵️‍♀️" }, { id: 3, src: MEDIA.gallery3, caption: "That Beautiful Smile 😍" },
+                { id: 4, src: MEDIA.gallery4, caption: "My Happy Place 🏡" }, { id: 5, src: MEDIA.gallery5, caption: "Life is Better with You ❤️" }, { id: 6, src: MEDIA.gallery6, caption: "Simply Perfection ✨" },
+            ];
+            return (
+                <div className="py-24 bg-white/30">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <SectionHeading title="Anu's Gallery" subtitle="A collection of my favorite photos of you." icon={ImageIcon} />
+                        <div className="grid md:grid-cols-3 gap-10">
+                            {photos.map((p) => (
+                                <div key={p.id} className="relative group bg-white p-4 rounded-t-full rounded-b-3xl shadow-lg border border-pink-50 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                                    <div className="relative aspect-3-4 overflow-hidden rounded-t-large rounded-b-xl"><SafeImage src={p.src} className="w-full h-full object-cover" /><div className="absolute inset-0 bg-pink-500/0 group-hover:bg-pink-500/10 transition-colors duration-300"></div></div>
+                                    <p className="pt-6 pb-2 text-center font-serif italic text-xl text-gray-700">{p.caption}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const OpenWhenLetters = () => {
+            const [activeLetter, setActiveLetter] = useState(null);
+            const letters = [
+                { id: 1, title: "Open when you miss me", content: "Chop karo air ao galay galay karay", icon: Heart, color: "bg-red-50", sealColor: "text-red-400" },
+                { id: 2, title: "Open when you need a smile", content: "Stop frowning, you'll get wrinkles! Just kidding, you're perfect. But seriously, smile! I love you more than I love annoying you... and you know that's my favorite hobby. 😉", icon: Star, color: "bg-yellow-50", sealColor: "text-yellow-500" },
+                { id: 3, title: "Open when you feel stressed", content: "You are stronger than you know. Take it one step at a time. I believe in you more than anyone else in this world. You've got this, Anu.", icon: Feather, color: "bg-green-50", sealColor: "text-green-500" },
+                { id: 4, title: "Open when you can't sleep", content: "Look up at the moon. I'm looking at it too. Let the stars be your nightlight and my love be your blanket. Shaba khair, beautiful.", icon: Moon, color: "bg-indigo-50", sealColor: "text-indigo-500" }
+            ];
+            return (
+                <div className="py-24 bg-white/40">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <SectionHeading title="Letters for My Love" subtitle="Little reminders for every mood, just for you." icon={Mail} />
+                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                            {letters.map((l) => { const IconComp = l.icon; return (
+                                <button key={l.id} onClick={() => setActiveLetter(l)} className={`group relative ${l.color} h-64 rounded-2xl shadow-sm border-4 border-white hover:border-pink-200 hover:shadow-2xl hover:-translate-y-3 transition-all duration-500 flex flex-col items-center justify-center overflow-hidden pattern-dots`}>
+                                    <div className="absolute top-0 inset-x-0 h-32 bg-black/5 envelope-flap-cut transform origin-top transition-transform duration-500 group-hover:scale-y-75"></div>
+                                    <div className={`relative z-10 w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-4 group-hover:scale-110 transition-transform duration-500 ${l.sealColor} bg-opacity-90`}><IconComp className="w-8 h-8" /></div>
+                                    <h3 className="relative z-10 font-serif font-bold text-gray-800 text-lg px-4 group-hover:text-pink-600 transition-colors">{l.title}</h3>
+                                    <span className="relative z-10 mt-2 text-xs font-bold text-gray-400 uppercase tracking-widest opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">Tap to Open</span>
+                                </button>
+                            );})}
+                        </div>
+                        {activeLetter && (<div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in" onClick={() => setActiveLetter(null)}><div className="bg-[#fffdf7] p-10 max-w-lg w-full shadow-2xl relative rotate-1 rounded-xl border-8 border-pink-50" onClick={(e) => e.stopPropagation()}><button onClick={() => setActiveLetter(null)} className="absolute top-4 right-4 text-gray-400 hover:text-pink-500 transition-colors"><CloseIcon className="w-6 h-6" /></button><div className="flex flex-col items-center mb-6"><div className={`p-3 rounded-full ${activeLetter.sealColor.replace('text-', 'bg-').replace('500', '100').replace('400', '100')} ${activeLetter.sealColor} bg-opacity-20 mb-2`}>{(() => { const ActiveIcon = activeLetter.icon; return <ActiveIcon className="w-6 h-6" />; })()}</div><h3 className="text-2xl font-serif font-bold text-gray-900 text-center">{activeLetter.title}</h3></div><div className="h-px w-full bg-pink-100 mb-6"></div><p className="text-gray-700 text-xl font-handwriting leading-loose text-center">"{activeLetter.content}"</p><div className="mt-8 text-center"><div className="inline-block px-4 py-1 border border-pink-200 rounded-full text-xs text-pink-400 uppercase tracking-widest">Forever Yours</div></div></div></div>)}
+                    </div>
+                </div>
+            );
+        };
+
+        const ReasonsWhy = () => {
+            const [currentReason, setCurrentReason] = useState(null);
+            const [isAnimating, setIsAnimating] = useState(false);
+            const reasons = ["The way your eyes sparkle when you laugh.", "How you make everyone around you feel special.", "Your incredible kindness.", "The way you scrunch your nose.", "Your unwavering support.", "Simply because you are you."];
+            const getRandomReason = () => { setIsAnimating(true); setTimeout(() => { setCurrentReason(reasons[Math.floor(Math.random() * reasons.length)]); setIsAnimating(false); }, 500); };
+            return (
+                <div className="py-24 bg-white/20">
+                    <div className="max-w-4xl mx-auto px-4 text-center">
+                        <SectionHeading title="100 Reasons Why" subtitle="I could list a million, but let's start with a few." icon={Quote} />
+                        <div className="glass-card rounded-[3rem] p-10 min-h-[200px] flex flex-col items-center justify-center">
+                            {currentReason ? <p className="text-2xl md:text-3xl font-serif text-gray-800 leading-tight animate-fade-in">{currentReason}</p> : <p className="text-xl text-gray-500 font-light italic">Click to reveal...</p>}
+                            <div className="mt-8"><button onClick={getRandomReason} disabled={isAnimating} className="px-8 py-3 bg-pink-500 text-white rounded-full font-bold shadow-md hover:bg-pink-600 flex items-center gap-2 transition-all hover:scale-105"><Shuffle className="w-4 h-4" /> Tell Me Why</button></div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const MagicWand = () => {
+            const [activeTab, setActiveTab] = useState('horoscope');
+            const [input, setInput] = useState('');
+            const [result, setResult] = useState('');
+            const [loading, setLoading] = useState(false);
+            const generateMagic = async () => {
+                if (!input.trim()) return;
+                setLoading(true);
+                if (activeTab === 'calculator') {
+                    await new Promise(r => setTimeout(r, 2000));
+                    const names = input.toLowerCase();
+                    if (names.includes('sarmad') && (names.includes('anu') || names.includes('ayena'))) setResult("❤️ Compatibility: 1000% - Soulmates Forever! 💍");
+                    else setResult("❓ Unknown Pair. Calibrated only for Sarmad & Anu.");
+                    setLoading(false); return;
+                }
+                const p = activeTab === 'horoscope' ? `Horoscope for Anu on ${input}` : activeTab === 'poem' ? `Poem about ${input}` : `Date idea: ${input}`;
+                const text = await callGemini(p);
+                setResult(text); setLoading(false);
+            };
+            return (
+                <div className="py-24 relative">
+                    <div className="max-w-4xl mx-auto px-4 relative z-10">
+                        <SectionHeading title="The Royal Scribe" subtitle="Use a little magic to create something special." icon={Wand2} />
+                        <div className="glass-card rounded-[2.5rem] p-8">
+                            <div className="flex flex-wrap justify-center gap-4 mb-8">
+                                {['horoscope', 'poem', 'date', 'calculator'].map(t => (
+                                    <button key={t} onClick={() => {setActiveTab(t); setResult('');}} className={`px-6 py-2 rounded-full font-bold capitalize transition-all ${activeTab === t ? 'bg-pink-500 text-white shadow-md' : 'bg-white/50 text-gray-500 hover:bg-white'}`}>{t}</button>
+                                ))}
+                            </div>
+                            <div className="flex gap-4">
+                                <input type={activeTab === 'horoscope' ? 'date' : 'text'} value={input} onChange={e => setInput(e.target.value)} className="flex-1 p-4 bg-white/70 rounded-2xl border border-pink-100 focus:border-pink-300 outline-none shadow-inner" placeholder={activeTab === 'calculator' ? "Sarmad & Anu..." : "Enter details..."} />
+                                <button onClick={generateMagic} className="bg-pink-500 text-white px-8 rounded-2xl font-bold hover:bg-pink-600 transition-all hover:scale-105 shadow-lg">{loading ? "..." : "Reveal"}</button>
+                            </div>
+                            {result && <div className="mt-8 p-8 bg-white/80 rounded-2xl text-center animate-fade-in whitespace-pre-wrap font-serif text-lg leading-relaxed text-gray-700">{result}</div>}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const Messages = () => {
+            const msgs = [{ title: "My Appreciation", content: "For the little things.", icon: Star }, { title: "My Love", content: "You are beautiful.", icon: Heart }, { title: "My Promise", content: "Always by your side.", icon: Crown }];
+            return (
+                <div className="py-24">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <SectionHeading title="Why I Adore You" subtitle="Just a few of the infinite reasons." icon={MessageCircle} />
+                        <div className="grid md:grid-cols-3 gap-8">
+                            {msgs.map((m, i) => { const IconComp = m.icon; return (
+                                <div key={i} className="glass-card p-10 rounded-[2.5rem] text-center hover:-translate-y-2 transition-transform duration-500 hover:bg-white/80">
+                                    <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-6 text-pink-500 shadow-inner"><IconComp className="w-8 h-8" /></div>
+                                    <h3 className="text-2xl font-serif font-bold text-gray-800 mb-3">{m.title}</h3>
+                                    <p className="text-gray-600 font-light leading-relaxed">{m.content}</p>
+                                </div>
+                            );})}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const SurprisePlaylist = () => (
+            <div className="py-24 relative overflow-hidden">
+                <div className="max-w-4xl mx-auto px-4 relative z-10 text-center">
+                    <SectionHeading title="One Last Surprise..." subtitle="A collection of songs that define us." icon={Headphones} />
+                    <div className="glass-card p-12 rounded-[3rem]">
+                        <div className="flex flex-col md:flex-row items-center justify-center gap-12">
+                            <div className="relative w-48 h-48"><div className="absolute inset-0 rounded-full bg-gray-900 border-4 border-gray-800 shadow-xl animate-spin-slow group-hover:animate-spin"><div className="absolute inset-0 flex items-center justify-center"><div className="w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center border-4 border-white"><MusicNote className="w-8 h-8 text-white" /></div></div></div></div>
+                            <div className="text-center md:text-left"><h3 className="text-3xl font-serif font-bold text-gray-900 mb-2">Our Special Playlist</h3><p className="text-gray-600 mb-6 font-light">Curated with love, just for you.</p><a href={PLAYLIST_LINK} target="_blank" className="inline-flex items-center gap-3 bg-green-500 text-white px-10 py-4 rounded-full font-bold shadow-lg hover:bg-green-600 transition-all hover:-translate-y-1"><Play className="w-5 h-5 fill-current" /> Open in Spotify</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const Footer = () => (
+            <footer className="bg-white/40 backdrop-blur border-t border-white/50 py-12 text-center">
+                <div className="flex flex-col items-center justify-center mb-4"><div className="flex items-center gap-2"><Crown className="w-5 h-5 text-pink-400" /><span className="text-xl font-serif text-gray-800">Forever Yours</span></div><span className="text-lg font-serif text-pink-500 mt-1">sk7</span></div>
+                <p className="text-gray-500 text-xs uppercase tracking-widest">Created with all my love.</p>
+            </footer>
+        );
+
+        const App = () => {
+            const [showConfetti, setShowConfetti] = useState(false);
+            const triggerConfetti = () => { setShowConfetti(true); setTimeout(() => setShowConfetti(false), 5000); };
+            return (
+                <div className="min-h-screen font-sans text-gray-900 selection:bg-pink-200">
+                    <MagicCursor />
+                    <ClickBlooms />
+                    <MusicPlayer />
+                    <ConfettiCanvas isActive={showConfetti} />
+                    <main>
+                        <Navbar />
+                        <Hero triggerConfetti={triggerConfetti} />
+                        <OurJourney />
+                        <Gallery />
+                        <OpenWhenLetters />
+                        <ReasonsWhy />
+                        <MagicWand />
+                        <Messages />
+                        <SurprisePlaylist />
+                    </main>
+                    <Footer />
+                </div>
+            );
+        };
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>
+
